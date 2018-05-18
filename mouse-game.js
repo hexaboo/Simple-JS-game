@@ -11,7 +11,7 @@ canvas.height = 550;
 var bgReady = false;
 var bgImage = new Image();
 
-bgImage.onload = function () {
+bgImage.onload = () => {
 	bgReady = true;
 };
 bgImage.src = "background.png";
@@ -20,7 +20,7 @@ bgImage.src = "background.png";
 var catReady = false;
 var catImage = new Image();
 
-catImage.onload = function () {
+catImage.onload = () => {
 	catReady = true;
 };
 catImage.src = "cat.png";
@@ -29,7 +29,7 @@ catImage.src = "cat.png";
 var mouseReady = false;
 var mouseImage = new Image();
 
-mouseImage.onload = function () {
+mouseImage.onload = () => {
 	mouseReady = true;
 };
 mouseImage.src = "mouse.png";
@@ -44,11 +44,11 @@ var counter = 0;
 //functions for checking if key is pressed
 var keysDown = {};
 
-addEventListener("keydown", function (e) {
+addEventListener("keydown", (e) => {
 	keysDown[e.keyCode] = true;
 }, false);
 
-addEventListener("keyup", function (e) {
+addEventListener("keyup", (e) => {
 	delete keysDown[e.keyCode];
 }, false);
 
@@ -65,21 +65,25 @@ var reset = () => {
 
 //Update game objects
 var update = modifier => {
-	if (38 in keysDown && cat.y >= 0)   // when holding 'up'
+	if (38 in keysDown && cat.y >= 0) {  // when holding 'up'
 		cat.y -= cat.speed * modifier;
+	}
 
-	if (40 in keysDown && cat.y <= 505) // when holding 'down'
+	if (40 in keysDown && cat.y <= 505) {// when holding 'down'
 		cat.y += cat.speed * modifier;
+	}
 	
-	if (37 in keysDown && cat.x >= 0)   // when holding 'left'
+	if (37 in keysDown && cat.x >= 0) {  // when holding 'left'
 		cat.x -= cat.speed * modifier;
+	}
 	
-	if (39 in keysDown && cat.x <= 505) // when holding 'right'
+	if (39 in keysDown && cat.x <= 505) {// when holding 'right'
 		cat.x += cat.speed * modifier;
+	}
 	
 	//check if they are touching
 	if ( Math.abs( cat.x - mouse.x ) <= 33 &&
-		 Math.abs( cat.y - mouse.y ) <= 41 ){
+	     Math.abs( cat.y - mouse.y ) <= 41 ){
 			++counter;
 			reset();
 	};
@@ -87,14 +91,17 @@ var update = modifier => {
 	
 //Draw game on canvas
 var render = () => {
-	if (bgReady) 
+	if (bgReady) {
 		context.drawImage(bgImage,0,0);
+	}
 	
-	if (catReady) 
+	if (catReady) {
 		context.drawImage(catImage, cat.x, cat.y);
+	}
 	
-	if (mouseReady) 
+	if (mouseReady) {
 		context.drawImage(mouseImage, mouse.x, mouse.y);
+	}
 	
 	//display the score
 	context.fillStyle = "white";
